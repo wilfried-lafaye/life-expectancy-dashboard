@@ -1,12 +1,20 @@
 from dash import Dash, dcc, html, Input, Output
 import dash_bootstrap_components as dbc
 
+# Pipeline de données
+from src.utils.get_data import download_raw_data
+from src.utils.clean_data import clean_data
+
+download_raw_data()
+clean_data()
+
+# Imports des composants
 from src.pages.home import page_layout, register_callbacks
 from src.components.histogramme import layout as histogram_layout
 
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
-
 app.title = "Dashboard"
+
 app.layout = html.Div([
     dcc.Location(id="url"),
     dbc.NavbarSimple(
@@ -30,4 +38,3 @@ register_callbacks(app)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8051)
-
