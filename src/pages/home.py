@@ -1,9 +1,13 @@
-# src/pages/home.py
-import dash
+"""
+Module de la page d'accueil du dashboard.
+Contient le layout de la carte choroplèthe et les callbacks associés.
+"""
+
 from dash import dcc, html, Output, Input
 import dash_bootstrap_components as dbc
 from src.utils.get_data import load_clean_data, load_world_geojson
-from src.components.map_dash import create_map
+from src.components.map import create_map
+
 
 df = load_clean_data()
 world_gj = load_world_geojson()
@@ -16,21 +20,56 @@ page_layout = dbc.Container([
         dbc.Col([
             html.H1("Life expectancy at birth — world choropleth"),
             html.Label("Year"),
-            dcc.Dropdown(id="year-dropdown", options=[{"label": y, "value": y} for y in years], value=years[-1]),
+            dcc.Dropdown(
+                id="year-dropdown",
+                options=[{"label": y, "value": y} for y in years],
+                value=years[-1]
+            ),
             html.Br(),
             html.Label("Sex"),
-            dcc.RadioItems(id="sex-radio", options=[{"label": s, "value": s} for s in sex_codes_avail_raw], value="Female"),
-        ], width=3, style={"padding": "20px", "backgroundColor": "#f8f9fa", "borderRadius": "8px"}),
+            dcc.RadioItems(
+                id="sex-radio",
+                options=[
+                    {"label": s, "value": s} for s in sex_codes_avail_raw
+                ],
+                value="Female"
+            ),
+        ], width=3, style={
+            "padding": "20px",
+            "backgroundColor": "#f8f9fa",
+            "borderRadius": "8px"
+        }),
         dbc.Col([
-            html.Iframe(id="map-iframe", srcDoc=None, style={"width": "100%", "height": "650px", "border": "none"}),
+            html.Iframe(
+                id="map-iframe",
+                srcDoc=None,
+                style={"width": "100%", "height": "650px", "border": "none"}
+            ),
         ], width=9)
     ])
 ], fluid=True)
 
+
 def register_callbacks(app):
+    """
+    Enregistre les callbacks pour la page d'accueil.
+
+    Args:
+        app: L'instance de l'application Dash
+    """
     @app.callback(
         Output("map-iframe", "srcDoc"),
         [Input("year-dropdown", "value"), Input("sex-radio", "value")]
     )
-    def updatemap(year_selected, sex_selected):
+    def update_map(year_selected, sex_selected):
+        """
+        Met à jour la carte en fonction de l'année et du sexe sélectionnés.
+
+        Args:
+            year_selected: L'année sélectionnée
+            sex_selected: Le sexe sélectionné
+
+        Returns:
+            str: Le HTML de la carte Folium
+        """
         return create_map(df, world_gj, year_selected, sex_selected)

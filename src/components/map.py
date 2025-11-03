@@ -1,13 +1,28 @@
+"""
+Module de création de carte choroplèthe.
+Génère une carte Folium interactive avec tooltip au survol.
+"""
+
 import folium
-import numpy as np
 
 
 def create_map(df, world_gj, selected_year, selected_sex):
     """
     Génère une carte choroplèthe Folium avec tooltip au survol.
+
+    Args:
+        df (pd.DataFrame): DataFrame contenant les données d'espérance de vie
+        world_gj (dict): GeoJSON des pays du monde
+        selected_year (int): Année sélectionnée
+        selected_sex (str): Sexe sélectionné ('Male', 'Female', 'Both')
+
+    Returns:
+        str: HTML de la carte Folium
     """
     # Filtrer les données selon sélection
-    subset = df[(df["TimeDim"] == selected_year) & (df["Dim1"] == selected_sex)].copy()
+    subset = df[
+        (df["TimeDim"] == selected_year) & (df["Dim1"] == selected_sex)
+    ].copy()
 
     # Créer un dictionnaire pour accès rapide : code pays -> valeur
     life_exp_dict = dict(zip(subset["SpatialDim"], subset["NumericValue"]))
@@ -16,19 +31,18 @@ def create_map(df, world_gj, selected_year, selected_sex):
     for feature in world_gj['features']:
         country_code = feature.get('id')  # Récupère l'ID du pays
         if country_code and country_code in life_exp_dict:
-            feature['properties']['life_expectancy'] = round(life_exp_dict[country_code], 1)
+            feature['properties']['life_expectancy'] = round(
+                life_exp_dict[country_code], 1
+            )
         else:
             feature['properties']['life_expectancy'] = 'N/A'
 
-    # Calculer l'échelle de couleurs
-    values = subset["NumericValue"].dropna().values
-    if len(values) == 0:
-        vmin, vmax = 60, 90
-    else:
-        vmin, vmax = np.percentile(values, 2), np.percentile(values, 98)
-
     # Créer la carte
-    m = folium.Map(zoom_start=2, location=[20, 0], tiles="cartodb positron")
+    folium_map = folium.Map(
+        zoom_start=2,
+        location=[20, 0],
+        tiles="cartodb positron"
+    )
 
     # Ajouter la couche choroplèthe
     choropleth = folium.Choropleth(
@@ -46,7 +60,7 @@ def create_map(df, world_gj, selected_year, selected_sex):
         reset=True,
         smooth_factor=0,
     )
-    choropleth.add_to(m)
+    choropleth.add_to(folium_map)
 
     # Ajouter le tooltip sur la couche GeoJson interne du Choropleth
     choropleth.geojson.add_child(
@@ -67,4 +81,6 @@ def create_map(df, world_gj, selected_year, selected_sex):
         )
     )
 
-    return m._repr_html_()
+    # Retourner le HTML de la carte
+    # pylint: disable=protected-access
+    return folium_map._repr_html_()
