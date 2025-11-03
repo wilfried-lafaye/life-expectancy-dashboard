@@ -10,6 +10,7 @@ world_gj = load_world_geojson()
 years = sorted(df["TimeDim"].dropna().unique().tolist())
 sex_codes_avail_raw = ['Female', 'Both', 'Male']
 
+
 page_layout = dbc.Container([
     dbc.Row([
         dbc.Col([

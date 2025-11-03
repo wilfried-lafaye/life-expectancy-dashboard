@@ -102,6 +102,9 @@ corresponding_dict = {
 
 df['Dim1'] = df['Dim1'].map(corresponding_dict)
 
+#print('SSD' in df['SpatialDim'].unique().tolist())
+
+
 # =============================================================
 # SAUVEGARDE DU FICHIER NETTOYÉ
 # =============================================================
