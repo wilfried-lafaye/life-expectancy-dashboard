@@ -34,7 +34,7 @@ def create_map(df, world_gj, selected_year, selected_sex):
         data=subset,
         columns=["SpatialDim", "NumericValue"],
         key_on="feature.id",
-        fill_color="YlGnBu",
+        fill_color="Greens",
         fill_opacity=0.7,
         line_opacity=0.2,
         legend_name="Life expectancy at birth",
