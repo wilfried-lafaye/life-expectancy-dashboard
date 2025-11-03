@@ -1,0 +1,17 @@
+/* Menu dropdown ouvert sombre avec texte blanc */
+.Select-menu-outer, .VirtualizedSelectMenu {
+    background-color: #1f2c34 !important;
+    color: white !important;
+}
+
+/* Option sélectionnée */
+.Select-option.is-selected {
+    background-color: #3a4a56 !important;
+    color: white !important;
+}
+
+/* Option au survol */
+.Select-option:hover {
+    background-color: #2a3b47 !important;
+    color: white !important;
+}
