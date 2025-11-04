@@ -1,0 +1,40 @@
+2025-11-04 14:48:52,302 - INFO - Starting Life Expectancy Dashboard application...
+2025-11-04 14:48:53,590 - INFO - ============================================================
+2025-11-04 14:48:53,591 - INFO - Starting data pipeline initialization...
+2025-11-04 14:48:53,591 - INFO - ============================================================
+2025-11-04 14:48:53,591 - INFO - Step 1/3: Downloading raw data from WHO API...
+2025-11-04 14:48:53,913 - INFO - ✓ Raw data downloaded successfully
+2025-11-04 14:48:53,913 - INFO - Step 2/3: Cleaning and processing data...
+2025-11-04 14:48:54,023 - INFO - ✓ Data cleaned successfully
+2025-11-04 14:48:54,023 - INFO - Step 3/3: Creating WHO regions GeoJSON...
+2025-11-04 14:48:54,234 - INFO - ✓ WHO regions GeoJSON created successfully
+2025-11-04 14:48:54,235 - INFO - ============================================================
+2025-11-04 14:48:54,235 - INFO - ✓ Data pipeline initialized successfully
+2025-11-04 14:48:54,235 - INFO - ============================================================
+2025-11-04 14:48:57,142 - INFO - Creating Dash application...
+2025-11-04 14:48:57,165 - INFO - ✓ Dash application created successfully
+2025-11-04 14:48:57,165 - INFO - ============================================================
+2025-11-04 14:48:57,166 - INFO - Starting Dash server on http://127.0.0.1:8051/
+2025-11-04 14:48:57,166 - INFO - Press CTRL+C to stop the server
+2025-11-04 14:48:57,166 - INFO - ============================================================
+2025-11-04 14:48:57,167 - INFO - Dash is running on http://127.0.0.1:8051/
+
+2025-11-04 14:48:57,224 - INFO - Starting Life Expectancy Dashboard application...
+2025-11-04 14:48:57,914 - INFO - ============================================================
+2025-11-04 14:48:57,914 - INFO - Starting data pipeline initialization...
+2025-11-04 14:48:57,914 - INFO - ============================================================
+2025-11-04 14:48:57,914 - INFO - Step 1/3: Downloading raw data from WHO API...
+2025-11-04 14:48:58,249 - INFO - ✓ Raw data downloaded successfully
+2025-11-04 14:48:58,249 - INFO - Step 2/3: Cleaning and processing data...
+2025-11-04 14:48:58,351 - INFO - ✓ Data cleaned successfully
+2025-11-04 14:48:58,351 - INFO - Step 3/3: Creating WHO regions GeoJSON...
+2025-11-04 14:48:58,468 - INFO - ✓ WHO regions GeoJSON created successfully
+2025-11-04 14:48:58,469 - INFO - ============================================================
+2025-11-04 14:48:58,469 - INFO - ✓ Data pipeline initialized successfully
+2025-11-04 14:48:58,469 - INFO - ============================================================
+2025-11-04 14:48:59,215 - INFO - Creating Dash application...
+2025-11-04 14:48:59,228 - INFO - ✓ Dash application created successfully
+2025-11-04 14:48:59,228 - INFO - ============================================================
+2025-11-04 14:48:59,228 - INFO - Starting Dash server on http://127.0.0.1:8051/
+2025-11-04 14:48:59,228 - INFO - Press CTRL+C to stop the server
+2025-11-04 14:48:59,228 - INFO - ============================================================
