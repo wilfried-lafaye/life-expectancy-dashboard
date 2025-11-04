@@ -1,43 +1,115 @@
-# projet_python
+## Life Expectancy Around the World
 
+Interactive dashboard exploring **life expectancy at birth** by country and region using open WHO data.  
+Built with **Python (Dash/Plotly & Folium)** to practice data ingestion, cleaning, and visualization.
+
+## User Guide
+
+### Prerequisites
+- **Python 3.10+**
+- **Internet access** (first run fetches data/GeoJSON)
+- Dependencies listed in `requirements.txt`
+
+### Installation
+```bash
+git clone https://github.com/<your-account>/<your-repo>.git
+cd <your-repo>
+
+# (recommended) virtual environment
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux:
+source .venv/bin/activate
+
+python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 
-Un titre avec le nom du projet :
-Life Expectancy Around the World
-Une description concise du projet et ses objectifs sans jargon excessif :
+Run the dashboard : 
+launch main.py or Open directly in your browser http://127.0.0.1:8053/.
 
-Second year engineering students project in python aiming to learn how to manipulate data, cleaning and using them to create dashboards.
+### How to Use
+Map.py : world choropleth foltered by year and sex.
+Histogramme.py : one bar per life-expectancy range; hover a bar to see regioal breakdown (counts and %)
 
-Les prérequis avant utilisation (versions, dépendances) :
+### Dependency issues
+in the shell/terminal, run :
+python -m pip install --upgrade pip 
+and then
+python -m pip install -r requirements.txt.
 
-This project needs internet to work in order to download data and modules
-I would recommend to download minimum Python 3.10 or plus to be compatible with all modules.
-You will find all modules required for the programm in the file "requirement.txt". To download all the modules in one command in the shell with this command : "python -m pip install -r requirements.txt".
+## Data    
+**Primary source:** World Health Organization (WHO) — *Life expectancy at birth (years)*.
 
-Un guide d’installation détaillé :
+*Key fields used:*
+- `TimeDim` (year)
+- `Dim1` / `Dim1_norm` (sex)
+- `SpatialDim` (country ISO-3)
+- `NumericValue` (life expectancy)
+- `ParentLocation` (region)
 
-If you satisfied all the requirements specified upper, you will be able to launch main.py
-When main.py will be launched a pop up will suggest you to launch the app on the http://127.0.0.1:8051/. 
-If the pop up doesn't appear I suggest you to open a navigator andto enter the link upper.
+*Cleaning pipeline:*
+1. Keep only rows where `SpatialDimType == "COUNTRY"`.
+2. Coerce `NumericValue` to numeric.
+3. Normalize sex labels to `SEX_MLE`, `SEX_FMLE`, `SEX_BTSX` (plus readable variants).
+4. Save cleaned dataset to `data/cleaned/cleaneddata.csv`.
 
-Un guide d’utilisation avec des exemples si possible :
+**World boundaries:** public world-countries GeoJSON.  
+Country ID alignment handled on ISO-3 (with small patches, e.g., *South Sudan → `SSD`*).
 
+## Developper Guide
 
-La roadmap ou les évolutions prévues :
+### Project Structure
 
-Des informations sur la licence :
+├─ .vscode/ # editor settings (optional)
+├─ assets/
+│ └─ custom.css # optional custom styles for Dash
+├─ data/
+│ ├─ cleaned/
+│ │ └─ cleaneddata.csv # cleaned dataset used by the app
+│ └─ raw/
+│ └─ rawdata.csv # original WHO download (optional cache)
+├─ src/
+│ ├─ components/ # reusable UI/figures for pages
+│ │ ├─ init.py
+│ │ ├─ histogramme.py # histogram (one color + region details on hover)
+│ │ └─ map.py # Folium choropleth builder
+│ ├─ pages/ # page layouts + page-specific callbacks
+│ │ ├─ init.py
+│ │ └─ home.py # home/router page assembling components
+│ └─ utils/ # data utilities
+│ ├─ init.py
+│ ├─ get_data.py # load/clean helpers (raw → cleaned)
+│ └─ clean_data.py # one-off cleaning script (optional)
+├─ config.py # project-level constants/paths (optional)
+├─ main.py # Dash entrypoint (navbar, routing, server)
+├─ requirements.txt # pinned dependencies
+└─ README.md # documentation
 
+## Analysis Report
 
-This project is licensed under the MIT License.
+- Global distribution: most countries lie within 70–80 years; a smaller set reaches 80–90.
+- Regional heterogeneity: Africa / Eastern Mediterranean dominate 50–60 and 60–70 bins; Europe / Americas dominate higher bins.
+- Sex differences: Female life expectancy is typically 3–6 years higher than Male (varies by region).
 
+These insights come from the interactive views (Map & Histogram) and can be refined by changing year/sex filters.
 
-La liste des contributeurs ou un moyen de contact:
+## Copyright
 
-This project was led by two data science students studying at ESIEE PARIS (Cité Descartes, 2 Bd Blaise Pascal, 93160 Noisy-le-Grand) in second year of engineering cycle. 
+We hereby certify that the code in this repository is original, except for the lines explicitly cited below.
+For each borrowed line (or group of lines), we provide the source reference and a brief explanation of the syntax.
 
-Keren Benadiba - keren.bendiba@edu.esiee.fr
-Wilfried Lafaye - Wilfried.lafaye@icloud.com
+Documented borrowings (to be completed if applicable):
 
-Des liens vers des ressources externes, captures d’écrans ou démonstrations.
+Folium loading/rendering: inspired by Folium documentation; ISO-3 join & ID patching implemented by us.
+Sex label normalization: mapping designed from WHO labels; implementation by us.
+Any line not declared above is deemed to be authored by the project’s contributors.
+Omission or lack of declaration will be considered plagiarism.
 
-Optionnellement, une section FAQ, bugs connus et instructions pour contribuer.
+## License
+
+Released under the MIT License.
+
+## Authors
+
+Keren Benadiba — keren.bendiba@edu.esiee.fr
+Wilfried Lafaye — wilfried.lafaye@icloud.com
