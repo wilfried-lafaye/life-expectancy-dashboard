@@ -8,11 +8,13 @@ then configures routes and callbacks.
 # Data pipeline
 from src.utils.get_data import download_raw_data
 from src.utils.clean_data import clean_data
+from src.utils.create_who_regions import create_who_regions_geojson
 
 
 # Download and clean data
 download_raw_data()
 clean_data()
+create_who_regions_geojson()
 
 
 from dash import Dash, dcc, html, Input, Output
@@ -67,4 +69,4 @@ register_callbacks(app)
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8052)
+    app.run(debug=True, port=8051)
