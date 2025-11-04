@@ -1,21 +1,21 @@
 """
-Module de nettoyage et préparation des données.
-Ce script charge les données brutes, effectue un nettoyage
-des colonnes et des lignes, supprime les colonnes vides,
-et exporte les données nettoyées ainsi que les statistiques.
+Data cleaning and preparation module.
+This script loads the raw data, performs cleaning
+on columns and rows, removes empty columns,
+and exports the cleaned data as well as statistics.
 """
 
 import pandas as pd
 
 def is_column_empty(series: pd.Series) -> bool:
     """
-    Vérifie si une colonne est totalement vide (NaN ou chaînes vides).
+    Checks if a column is completely empty (NaN or empty strings).
     
     Args:
-        series (pd.Series): La colonne du DataFrame à vérifier.
+        series (pd.Series): The DataFrame column to check.
         
     Returns:
-        bool: True si la colonne est vide, False sinon.
+        bool: True if the column is empty, False otherwise.
     """
     if series.dropna().empty:
         return True
@@ -26,16 +26,16 @@ def is_column_empty(series: pd.Series) -> bool:
 
 def clean_data():
     """
-    Charge, nettoie et sauvegarde la DataFrame.
+    Loads, cleans, and saves the DataFrame.
     """
-    # Chargement des données
+    # Load data
     df = pd.read_csv('data/raw/rawdata.csv')
 
-    # Suppression des colonnes vides
+    # Remove empty columns
     empty_cols = [col for col in df.columns if is_column_empty(df[col])]
     df = df.drop(columns=empty_cols)
 
-    # Suppression des colonnes inutilisées
+    # Remove unused columns
     unused_cols = [
         'TimeDimType', 'ParentLocationCode', 'TimeDimensionValue',
         'TimeDimensionBegin', 'TimeDimensionEnd', 'Date', 'Dim1Type',
@@ -43,7 +43,7 @@ def clean_data():
     ]
     df = df.drop(columns=unused_cols)
 
-    # Remappage de la colonne 'Dim1'
+    # Remap the 'Dim1' column
     corresponding_dict = {
         "SEX_BTSX": "Both",
         "SEX_MLE": "Male",
@@ -51,5 +51,5 @@ def clean_data():
     }
     df['Dim1'] = df['Dim1'].map(corresponding_dict)
 
-    # Sauvegarde du DataFrame nettoyé
+    # Save the cleaned DataFrame
     df.to_csv('data/cleaned/cleaneddata.csv', index=False)

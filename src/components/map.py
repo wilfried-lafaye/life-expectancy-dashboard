@@ -1,35 +1,34 @@
 """
-Module de création de carte choroplèthe.
-Génère une carte Folium interactive avec tooltip au survol.
+Choropleth map creation module.
+Generates an interactive Folium map with hover tooltip.
 """
 
 import folium
 
-
 def create_map(df, world_gj, selected_year, selected_sex):
     """
-    Génère une carte choroplèthe Folium avec tooltip au survol.
+    Generates a Folium choropleth map with hover tooltip.
 
     Args:
-        df (pd.DataFrame): DataFrame contenant les données d'espérance de vie
-        world_gj (dict): GeoJSON des pays du monde
-        selected_year (int): Année sélectionnée
-        selected_sex (str): Sexe sélectionné ('Male', 'Female', 'Both')
+        df (pd.DataFrame): DataFrame containing life expectancy data
+        world_gj (dict): World countries GeoJSON
+        selected_year (int): Selected year
+        selected_sex (str): Selected sex ('Male', 'Female', 'Both')
 
     Returns:
-        str: HTML de la carte Folium
+        str: Folium map HTML
     """
-    # Filtrer les données selon sélection
+    # Filter data according to selection
     subset = df[
         (df["TimeDim"] == selected_year) & (df["Dim1"] == selected_sex)
     ].copy()
 
-    # Créer un dictionnaire pour accès rapide : code pays -> valeur
+    # Create a dictionary for fast access: country code -> value
     life_exp_dict = dict(zip(subset["SpatialDim"], subset["NumericValue"]))
 
-    # Ajouter les valeurs dans le GeoJSON
+    # Add values to the GeoJSON
     for feature in world_gj['features']:
-        country_code = feature.get('id')  # Récupère l'ID du pays
+        country_code = feature.get('id')  # Get country ID
         if country_code and country_code in life_exp_dict:
             feature['properties']['life_expectancy'] = round(
                 life_exp_dict[country_code], 1
@@ -37,14 +36,14 @@ def create_map(df, world_gj, selected_year, selected_sex):
         else:
             feature['properties']['life_expectancy'] = 'N/A'
 
-    # Créer la carte
+    # Create the map
     folium_map = folium.Map(
         zoom_start=2,
         location=[20, 0],
         tiles="cartodb positron"
     )
 
-    # Ajouter la couche choroplèthe
+    # Add the choropleth layer
     choropleth = folium.Choropleth(
         geo_data=world_gj,
         name="Choropleth",
@@ -62,11 +61,11 @@ def create_map(df, world_gj, selected_year, selected_sex):
     )
     choropleth.add_to(folium_map)
 
-    # Ajouter le tooltip sur la couche GeoJson interne du Choropleth
+    # Add tooltip to the internal GeoJson layer of the Choropleth
     choropleth.geojson.add_child(
         folium.features.GeoJsonTooltip(
             fields=['name', 'life_expectancy'],
-            aliases=['Pays:', 'Espérance de vie:'],
+            aliases=['Country:', 'Life expectancy:'],
             localize=True,
             sticky=False,
             labels=True,
@@ -81,6 +80,6 @@ def create_map(df, world_gj, selected_year, selected_sex):
         )
     )
 
-    # Retourner le HTML de la carte
+    # Return the map HTML
     # pylint: disable=protected-access
     return folium_map._repr_html_()

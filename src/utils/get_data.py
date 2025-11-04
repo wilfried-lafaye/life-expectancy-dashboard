@@ -1,7 +1,7 @@
 """
-Module de téléchargement et chargement des données.
-Gère le téléchargement des données depuis l'API WHO,
-le chargement du GeoJSON et des données nettoyées.
+Data downloading and loading module.
+Handles data downloading from the WHO API,
+loading GeoJSON and cleaned data.
 """
 
 import json
@@ -14,17 +14,17 @@ import requests
 
 from config import DEFAULT_CSV, WORLD_GEOJSON_URL, URL
 
-# ajoute la racine du projet au sys.path
+# Add project root to sys.path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT))
 
 
 def load_world_geojson():
     """
-    Charge le fichier GeoJSON des pays du monde.
+    Loads the world countries GeoJSON file.
 
     Returns:
-        dict: Le contenu du fichier GeoJSON
+        dict: The GeoJSON file content
     """
     with urllib.request.urlopen(WORLD_GEOJSON_URL, timeout=15) as resp:
         gj = json.load(resp)
@@ -33,36 +33,36 @@ def load_world_geojson():
 
 def load_clean_data():
     """
-    Charge les données nettoyées depuis le fichier CSV.
+    Loads cleaned data from the CSV file.
 
     Returns:
-        pd.DataFrame: Les données nettoyées
+        pd.DataFrame: The cleaned data
     """
     return pd.read_csv(DEFAULT_CSV)
 
 
 def download_raw_data():
     """
-    Télécharge les données brutes depuis l'API WHO et les sauvegarde.
+    Downloads raw data from the WHO API and saves it.
 
     Returns:
         None
     """
-    # Requête GET vers l'API avec timeout
+    # GET request to the API with timeout
     response = requests.get(URL, timeout=30)
     response.raise_for_status()
 
-    # Conversion de la réponse en JSON
+    # Convert response to JSON
     json_data = response.json()
 
-    # Extraction des données dans la clé 'value'
+    # Extract data from the 'value' key
     records = json_data.get('value', [])
 
-    # Conversion en DataFrame pandas
+    # Convert to pandas DataFrame
     df = pd.DataFrame.from_records(records)
 
-    # Chemin complet pour sauvegarder dans data/raw/rawdata.csv
+    # Full path to save in data/raw/rawdata.csv
     output_path = "data/raw/rawdata.csv"
 
-    # Sauvegarde du DataFrame dans ce fichier CSV sans l'index
+    # Save DataFrame to this CSV file without the index
     df.to_csv(output_path, index=False)

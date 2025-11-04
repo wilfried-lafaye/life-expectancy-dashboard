@@ -1,6 +1,6 @@
 """
-Module de configuration de l'application Dashboard Life Expectancy.
-Contient les chemins des fichiers de données et les URLs des API externes.
+Configuration module for the Life Expectancy Dashboard application.
+Contains data file paths and external API URLs.
 """
 
 from pathlib import Path

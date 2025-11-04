@@ -1,6 +1,6 @@
 """
-Module de la page d'accueil du dashboard.
-Contient le layout de la carte choroplèthe et les callbacks associés.
+Dashboard home page module.
+Contains the choropleth map layout and associated callbacks.
 """
 
 from dash import dcc, html, Output, Input
@@ -8,12 +8,10 @@ import dash_bootstrap_components as dbc
 from src.utils.get_data import load_clean_data, load_world_geojson
 from src.components.map import create_map
 
-
 df = load_clean_data()
 world_gj = load_world_geojson()
 years = sorted(df["TimeDim"].dropna().unique().tolist())
 sex_codes_avail_raw = ['Female', 'Both', 'Male']
-
 
 page_layout = dbc.Container([
     dbc.Row([
@@ -49,13 +47,12 @@ page_layout = dbc.Container([
     ])
 ], fluid=True)
 
-
 def register_callbacks(app):
     """
-    Enregistre les callbacks pour la page d'accueil.
+    Registers callbacks for the home page.
 
     Args:
-        app: L'instance de l'application Dash
+        app: The Dash application instance
     """
     @app.callback(
         Output("map-iframe", "srcDoc"),
@@ -63,13 +60,13 @@ def register_callbacks(app):
     )
     def update_map(year_selected, sex_selected):
         """
-        Met à jour la carte en fonction de l'année et du sexe sélectionnés.
+        Updates the map based on the selected year and sex.
 
         Args:
-            year_selected: L'année sélectionnée
-            sex_selected: Le sexe sélectionné
+            year_selected: The selected year
+            sex_selected: The selected sex
 
         Returns:
-            str: Le HTML de la carte Folium
+            str: The Folium map HTML
         """
         return create_map(df, world_gj, year_selected, sex_selected)
