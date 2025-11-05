@@ -23,5 +23,5 @@ WORLD_GEOJSON_URL = (
     "https://raw.githubusercontent.com/johan/world.geo.json"
     "/master/countries.geo.json"
 )
-URL = "https://ghoapi.azureedge.net/api/WHOSIS_000001"
 
+URL = "https://ghoapi.azureedge.net/api/WHOSIS_000001"

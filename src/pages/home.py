@@ -1,6 +1,7 @@
 """
 Home page module - Landing page with navigation cards.
 """
+
 from dash import html
 import dash_bootstrap_components as dbc
 
@@ -10,7 +11,6 @@ page_layout = dbc.Container([
         "Explore global life expectancy data through interactive visualizations",
         className="text-center text-muted mb-5"
     ),
-    
     dbc.Row([
         dbc.Col([
             dbc.Card([
@@ -25,7 +25,6 @@ page_layout = dbc.Container([
                 ])
             ], className="mb-4")
         ], md=6),
-        
         dbc.Col([
             dbc.Card([
                 dbc.CardBody([
@@ -40,9 +39,4 @@ page_layout = dbc.Container([
             ], className="mb-4")
         ], md=6),
     ], justify="center"),
-    
 ], className="home-page", style={"marginTop": "2rem"})
-
-def register_callbacks(app):
-    """No callbacks needed for static home page."""
-    pass
