@@ -20,7 +20,7 @@ Built with **Python (Dash/Plotly & Folium)** to practice data ingestion, cleanin
 
 ### Prerequisites
 
-- **Python 3.11 or 3.12 (This project currently has compatibility issues with Python 3.14 due to deprecated functions used by Dash; please use Python 3.12 or 3.11 instead. The version used for developement is Python 3.12.1)**
+- **Python 3.11 or 3.12 (This project currently has compatibility issues with Python 3.14 due to deprecated functions used by Dash; please use Python 3.12 or 3.11 instead. The version used for devlopement is Python 3.12.1)**
 - **Internet access** (first run fetches data/GeoJSON)
 - Dependencies listed in `requirements.txt`
 
