@@ -40,21 +40,6 @@ def clean_data():
     empty_cols = [col for col in df.columns if is_column_empty(df[col])]
     df = df.drop(columns=empty_cols)
     
-    # Keep ParentLocation before removing it (we'll use it to create WHO_region)
-    # Map WHO region codes to standard codes
-    who_region_mapping = {
-        'African Region': 'AFR',
-        'Region of the Americas': 'AMR',
-        'South-East Asia Region': 'SEAR',
-        'European Region': 'EUR',
-        'Eastern Mediterranean Region': 'EMR',
-        'Western Pacific Region': 'WPR'
-    }
-    
-    # Create WHO_region column from ParentLocation
-    if 'ParentLocation' in df.columns:
-        df['WHO_region'] = df['ParentLocation'].map(who_region_mapping)
-    
     # Remove unused columns
     unused_cols = [
         'TimeDimType', 'ParentLocationCode', 'TimeDimensionValue',
