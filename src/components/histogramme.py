@@ -59,27 +59,33 @@ def update_histogram(selected_year):
     country_counts = filtered_df.groupby("age_bin", observed=True)["SpatialDim"].nunique()
     country_names = filtered_df.groupby("age_bin", observed=True)["SpatialDim"].unique()
 
-    # Créer un mapping inverse pays -> région WHO
-    country_to_region = {}
-    for region, countries in WHO_REGIONS.items():
-        for country in countries:
-            country_to_region[country] = region
+    # Construire le dictionnaire avec le nombre de pays par région pour chaque age_bin
+    A = {}
+    for age_bin, countries in country_names.items():
+        A[age_bin] = {}
+        for region_key, region_info in WHO_REGIONS.items():
+            count = 0
+            for country in countries:
+                if country in region_info['countries']:
+                    count += 1
+            if count > 0:
+                A[age_bin][region_info['name']] = count
 
-    # Créer le texte de survol pour chaque barre
+    # Créer les textes de hover à partir du dictionnaire A
     hover_texts = []
     for age_bin in country_counts.index:
-        countries = country_names[age_bin]
+        # Construire le texte pour cette barre
+        hover_lines = [
+            f"<b>{age_bin} years</b>",
+            f"Total: {country_counts[age_bin]} countries",
+            ""
+        ]
         
-        # Grouper par région WHO
-        region_counts = {}
-        for country in countries:
-            region = country_to_region.get(country, "Unknown")
-            region_counts[region] = region_counts.get(region, 0) + 1
-        
-        # Construire le texte de survol
-        hover_lines = [f"<b>{age_bin} years</b><br>Total: {country_counts[age_bin]} countries<br>"]
-        for region, count in sorted(region_counts.items()):
-            hover_lines.append(f"{region}: {count} countries")
+        # Ajouter les détails par région (triés alphabétiquement)
+        region_data = A.get(age_bin, {})
+        for region_name in sorted(region_data.keys()):
+            count = region_data[region_name]
+            hover_lines.append(f"{region_name}: {count} {'country' if count == 1 else 'countries'}")
         
         hover_texts.append("<br>".join(hover_lines))
 
@@ -90,8 +96,8 @@ def update_histogram(selected_year):
                 "y": country_counts.values,
                 "type": "bar",
                 "marker": {"color": "#0078D4"},
-                "text": hover_texts,
-                "hovertemplate": "%{text}<extra></extra>",
+                "hovertext": hover_texts,
+                "hoverinfo": "text",
             }
         ],
         "layout": {
