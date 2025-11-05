@@ -6,76 +6,82 @@ Built with **Python (Dash/Plotly & Folium)** to practice data ingestion, cleanin
 ## User Guide
 
 ### Prerequisites
+
 - **Python 3.10+**
 - **Internet access** (first run fetches data/GeoJSON)
 - Dependencies listed in `requirements.txt`
 
 ### Installation
+
 ```bash
 git clone https://github.com/<your-account>/<your-repo>.git
 cd <your-repo>
+```
 
 # (recommended) virtual environment
 python -m venv .venv
-# Windows: .venv\Scripts\activate
-# macOS/Linux:
+## Windows: 
+.venv\Scripts\activate
+## macOS/Linux:
 source .venv/bin/activate
 
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
 
-Run the dashboard : 
-launch main.py or Open directly in your browser http://127.0.0.1:8053/.
+## To run the dashboard : 
+launch main.py or Open directly in your browser http://127.0.0.1:8051/.
 
 ### How to Use
-Map.py : world choropleth foltered by year and sex.
-Histogramme.py : one bar per life-expectancy range; hover a bar to see regioal breakdown (counts and %)
+**Map.py :** shows a world choropleth that you can filter by **year** and **sex**, with a toggle to display data at the **country** or **region** level.
+
+**Histogramme.py :** one bar per life-expectancy range; hover a bar to see regional breakdown (counts and %)
 
 ### Dependency issues
+
 in the shell/terminal, run :
-python -m pip install --upgrade pip 
-and then
-python -m pip install -r requirements.txt.
+
+**python -m pip install --upgrade pip**
+
+**python -m pip install -r requirements.txt**
 
 ## Data    
 **Primary source:** World Health Organization (WHO) — *Life expectancy at birth (years)*.
 
-*Key fields used:*
+**Key fields used:**
 - `TimeDim` (year)
 - `Dim1` / `Dim1_norm` (sex)
 - `SpatialDim` (country ISO-3)
 - `NumericValue` (life expectancy)
 - `ParentLocation` (region)
 
-*Cleaning pipeline:*
+**Cleaning pipeline:**
 1. Keep only rows where `SpatialDimType == "COUNTRY"`.
 2. Coerce `NumericValue` to numeric.
 3. Normalize sex labels to `SEX_MLE`, `SEX_FMLE`, `SEX_BTSX` (plus readable variants).
 4. Save cleaned dataset to `data/cleaned/cleaneddata.csv`.
 
 **World boundaries:** public world-countries GeoJSON.  
-Country ID alignment handled on ISO-3 (with small patches, e.g., *South Sudan → `SSD`*).
+Country ID alignment handled on ISO-3 (with small patches like for *South Sudan → `SSD`*).
 
 ## Developper Guide
 
 ### Project Structure
 
+```bash
 ├─ .vscode/ # editor settings (optional)
 ├─ assets/
-│ └─ custom.css # optional custom styles for Dash
+│ └─ custom.css # custom styles for Dash (optional)
 ├─ data/
 │ ├─ cleaned/
 │ │ └─ cleaneddata.csv # cleaned dataset used by the app
 │ └─ raw/
-│ └─ rawdata.csv # original WHO download (optional cache)
+│ └─ rawdata.csv # original data downloaded (optional)
 ├─ src/
-│ ├─ components/ # reusable UI/figures for pages
+│ ├─ components/ 
 │ │ ├─ init.py
 │ │ ├─ histogramme.py # histogram (one color + region details on hover)
 │ │ └─ map.py # Folium choropleth builder
 │ ├─ pages/ # page layouts + page-specific callbacks
 │ │ ├─ init.py
-│ │ └─ home.py # home/router page assembling components
+│ │ └─ home.py # home page assembling components
 │ └─ utils/ # data utilities
 │ ├─ init.py
 │ ├─ get_data.py # load/clean helpers (raw → cleaned)
@@ -84,6 +90,7 @@ Country ID alignment handled on ISO-3 (with small patches, e.g., *South Sudan �
 ├─ main.py # Dash entrypoint (navbar, routing, server)
 ├─ requirements.txt # pinned dependencies
 └─ README.md # documentation
+```
 
 ## Analysis Report
 
@@ -112,4 +119,5 @@ Released under the MIT License.
 ## Authors
 
 Keren Benadiba — keren.bendiba@edu.esiee.fr
+
 Wilfried Lafaye — wilfried.lafaye@icloud.com
