@@ -1,17 +1,82 @@
-/* Menu dropdown ouvert sombre avec texte blanc */
-.Select-menu-outer, .VirtualizedSelectMenu {
-    background-color: #1f2c34 !important;
-    color: white !important;
+/* ====== HOME PAGE STYLES ONLY ====== */
+.home-page {
+    background-color: #f8f9fa;
+    font-family: "Inter", "Roboto", "Segoe UI", sans-serif;
+    color: #212529;
+    animation: fadeInUp 0.6s ease both;
 }
 
-/* Option sélectionnée */
-.Select-option.is-selected {
-    background-color: #3a4a56 !important;
-    color: white !important;
+/* TITRES DE LA HOME */
+.home-page h1, 
+.home-page h2, 
+.home-page h3, 
+.home-page h4, 
+.home-page h5 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: #1a1a1a;
 }
 
-/* Option au survol */
-.Select-option:hover {
-    background-color: #2a3b47 !important;
-    color: white !important;
+.home-page h1 {
+    font-size: 2.5rem;
+}
+
+/* TEXTES */
+.home-page p {
+    font-size: 1.05rem;
+}
+
+/* CARDS */
+.home-page .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+.home-page .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* TITRES DE CARDS */
+.home-page .card-title {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: #0d6efd;
+}
+
+/* TEXTES DE CARDS */
+.home-page .card-text {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* BOUTONS */
+.home-page .btn-primary {
+    background-color: #0d6efd;
+    border: none;
+    border-radius: 50px;
+    padding: 0.6rem 1.4rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.home-page .btn-primary:hover {
+    background-color: #0b5ed7;
+    box-shadow: 0 3px 10px rgba(13, 110, 253, 0.3);
+    transform: translateY(-2px);
+}
+
+/* ANIMATION */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
