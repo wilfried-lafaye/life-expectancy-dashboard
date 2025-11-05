@@ -25,6 +25,3 @@ WORLD_GEOJSON_URL = (
 )
 URL = "https://ghoapi.azureedge.net/api/WHOSIS_000001"
 
-# Create directories if they don't exist
-RAW_DATA_DIR.mkdir(parents=True, exist_ok=True)
-CLEANED_DATA_DIR.mkdir(parents=True, exist_ok=True)
