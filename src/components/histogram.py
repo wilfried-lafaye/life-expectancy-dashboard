@@ -6,7 +6,7 @@ Displays the distribution of countries by life expectancy ranges.
 import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import dcc, html, Input, Output, callback
-from scripts.create_who_regions import WHO_REGIONS
+from scripts.build_regional_geojson import WHO_REGIONS
 from src.utils.get_data import load_clean_data
 
 df = load_clean_data()

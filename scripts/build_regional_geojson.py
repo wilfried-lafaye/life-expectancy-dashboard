@@ -16,7 +16,7 @@ WHO_REGIONS = {
                       'ETH', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO',
                       'LBR', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MOZ', 'NAM',
                       'NER', 'NGA', 'RWA', 'STP', 'SEN', 'SYC', 'SLE', 'ZAF',
-                      'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE']
+                      'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE', 'MAR']
     },
     'AMR': {
         'name': 'Americas',
@@ -44,7 +44,7 @@ WHO_REGIONS = {
     'EMR': {
         'name': 'Eastern Mediterranean',
         'countries': ['AFG', 'BHR', 'DJI', 'EGY', 'IRN', 'IRQ', 'JOR', 'KWT',
-                      'LBN', 'LBY', 'MAR', 'OMN', 'PAK', 'PSE', 'QAT', 'SAU',
+                      'LBN', 'LBY', 'OMN', 'PAK', 'PSE', 'QAT', 'SAU',
                       'SOM', 'SDN', 'SYR', 'TUN', 'ARE', 'YEM']
     },
     'WPR': {
