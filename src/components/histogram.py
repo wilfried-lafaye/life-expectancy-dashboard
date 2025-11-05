@@ -7,7 +7,7 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 from dash import dcc, html, Input, Output, callback
 
-from src.utils.create_who_regions import WHO_REGIONS
+from scripts.create_who_regions import WHO_REGIONS
 from src.utils.get_data import load_clean_data
 
 df = load_clean_data()

@@ -9,9 +9,13 @@ then configures routes and callbacks.
 from pathlib import Path
 from src.utils.get_data import download_raw_data
 from src.utils.clean_data import clean_data
+from scripts.create_who_regions import create_who_regions_geojson
 
 
 # Download and clean data only if necessary
+if not Path('data/raw/who_regions.geojson').exists():
+    create_who_regions_geojson()
+
 if not Path('data/raw/rawdata.csv').exists():
     download_raw_data()
     
@@ -24,7 +28,8 @@ import dash_bootstrap_components as dbc
 
 
 from src.pages.home import page_layout, register_callbacks
-from src.components.histogramme import layout as histogram_layout
+from src.components.histogram import layout as histogram_layout
+
 
 
 

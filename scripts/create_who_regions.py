@@ -13,7 +13,7 @@ WHO_REGIONS = {
                      'COM', 'CIV', 'COD', 'GNQ', 'ERI', 'ETH', 'GAB', 'GMB', 'GHA', 'GIN', 
                      'GNB', 'KEN', 'LSO', 'LBR', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MOZ', 
                      'NAM', 'NER', 'NGA', 'COG', 'RWA', 'STP', 'SEN', 'SYC', 'SLE', 'ZAF', 
-                     'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE', 'SOM', 'DJI']
+                     'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE', 'SOM', 'DJI','MAR']
     },
     'AMR': {
         'name': 'Region of the Americas',
