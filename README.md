@@ -3,6 +3,19 @@
 Interactive dashboard exploring **life expectancy at birth** by country and region using open WHO data.  
 Built with **Python (Dash/Plotly & Folium)** to practice data ingestion, cleaning, and visualization.
 
+## Problem statement 
+
+**Have life expectancy gaps between regions of the world narrowed over the past 20 years, and do they differ between genders ?**
+
+**Hypotheses**
+  1. The inter-regional gap **declines** over time.
+  2. The **female advantage** is **positive** everywhere, but its magnitude **varies** by region.
+
+- **What we measure in the dashboard**
+  - Map: life expectancy by **year** and **sex** to spot low/high clusters.
+  - Histogram: share of countries per **life-expectancy range**, with **regional breakdown on hover**.
+  
+
 ## User Guide
 
 ### Prerequisites
@@ -86,6 +99,7 @@ Country ID alignment handled on ISO-3 (with small patches like for *South Sudan 
 │ ├─ init.py
 │ ├─ get_data.py # load/clean helpers (raw → cleaned)
 │ └─ clean_data.py # one-off cleaning script (optional)
+  └─ clean_data.py
 ├─ config.py # project-level constants/paths (optional)
 ├─ main.py # Dash entrypoint (navbar, routing, server)
 ├─ requirements.txt # pinned dependencies
