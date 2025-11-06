@@ -16,7 +16,6 @@ from src.utils.clean_data import clean_data
 
 # Download and clean data only if necessary
 if not Path('data/raw/rawdata.csv').exists():
-
     download_raw_data()
 
 if not Path('data/cleaned/cleaneddata.csv').exists():
