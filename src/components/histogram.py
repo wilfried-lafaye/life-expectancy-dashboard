@@ -73,13 +73,12 @@ pio.templates["app_light"] = pio.templates["simple_white"].update({
         "font": {"family": "Inter, Segoe UI, system-ui, sans-serif", "size": 14, "color": "#222"},
         "paper_bgcolor": "white",
         "plot_bgcolor": "white",
-        "colorway": ["#2563EB", "#059669", "#D97706", "#7C3AED"],  # future traces
+        "colorway": ["#2563EB", "#059669", "#D97706", "#7C3AED"],
         "xaxis": {"gridcolor": "#eee"},
         "yaxis": {"gridcolor": "#eee"},
     }
 })
 pio.templates.default = "app_light"
-
 
 
 @callback(
@@ -93,10 +92,7 @@ def update_histogram(selected_year, selected_sex, step):
     Updates the histogram based on the selected year, sex and bin width.
     """
     # --- Filter by year ---
-    if selected_year is None:
-        d = df.copy()
-    else:
-        d = df[df["TimeDim"] == selected_year].copy()
+    d = df.copy() if selected_year is None else df[df["TimeDim"] == selected_year].copy()
 
     # --- Filter by sex ---
     if selected_sex:
@@ -107,18 +103,22 @@ def update_histogram(selected_year, selected_sex, step):
     if vals.empty:
         return _empty_fig("No data for this selection.")
 
-    # expand slightly to clean edges
     vmin, vmax = float(vals.min()), float(vals.max())
     low = int(math.floor(vmin / step) * step)
     high = int(math.ceil(vmax / step) * step)
-    # ensure at least 1 bin
     if high <= low:
         high = low + step
 
     bins = list(range(low, high + step, step))
     labels = [f"{bins[i]}–{bins[i+1]-1}" for i in range(len(bins) - 1)]
 
-    d["age_bin"] = pd.cut(vals, bins=bins, labels=labels, right=False, include_lowest=True)
+    d["age_bin"] = pd.cut(
+        vals,
+        bins=bins,
+        labels=labels,
+        right=False,
+        include_lowest=True,
+    )
 
     # --- Counts per bin ---
     country_counts = d.groupby("age_bin", observed=True)["SpatialDim"].nunique()

@@ -21,13 +21,15 @@ try:
     n_countries = (
         _df[_df["SpatialDimType"] == "COUNTRY"]["SpatialDim"].nunique()
     )
-except Exception:
+except KeyError:
     n_countries = _df["SpatialDim"].nunique()
 
 # Sexes (as-is from the cleaned CSV)
-sexes = sorted(
-    pd.Series(_df["Dim1"]).dropna().astype(str).unique().tolist()
-) if "Dim1" in _df.columns else []
+sexes = (
+    sorted(pd.Series(_df["Dim1"]).dropna().astype(str).unique().tolist())
+    if "Dim1" in _df.columns
+    else []
+)
 
 # Total rows
 n_rows = len(_df)
@@ -39,8 +41,8 @@ problem = dbc.Alert(
     [
         html.H5("Problem statement", className="mb-2"),
         html.P(
-            "Have life expectancy gaps between regions of the world narrowed over the past 20 years,"
-            " and do they differ between genders ?"
+            "Have life expectancy gaps between regions of the world narrowed over "
+            "the past 20 years, and do they differ between genders?"
         ),
     ],
     color="light",
@@ -61,9 +63,12 @@ kpis = dbc.Row(
         ),
         dbc.Col(
             dbc.Card(
-                dbc.CardBody([html.H6("Years range"), html.H3(
-                    f"{year_min}–{year_max}" if year_min and year_max else "—"
-                )]),
+                dbc.CardBody(
+                    [
+                        html.H6("Years range"),
+                        html.H3(f"{year_min}–{year_max}" if year_min and year_max else "—"),
+                    ]
+                ),
                 style=kpi_card_style,
             ),
             md=3,
@@ -71,13 +76,17 @@ kpis = dbc.Row(
         ),
         dbc.Col(
             dbc.Card(
-                dbc.CardBody([html.H6("Sexes"), html.H3(" · ".join(sexes) if sexes else "—")]),
+                dbc.CardBody(
+                    [
+                        html.H6("Sexes"),
+                        html.H3(" · ".join(sexes) if sexes else "—"),
+                    ]
+                ),
                 style=kpi_card_style,
             ),
             md=3,
             xs=6,
         ),
-
     ],
     className="g-3 mb-4",
 )
@@ -144,11 +153,11 @@ how_to_run = dbc.Card(
             html.H4("How to run", className="mb-3"),
             html.Ol(
                 [
-                    html.Li("Install deps:  "),
+                    html.Li("Install deps:"),
                     html.Pre("python -m pip install -r requirements.txt"),
                     html.Li("Run the app:"),
                     html.Pre("python main.py"),
-                    html.Li("Open the browser directly at this URL : http://127.0.0.1:8050/"),
+                    html.Li("Open the browser directly at this URL: http://127.0.0.1:8050/"),
                 ]
             ),
         ]
@@ -163,8 +172,20 @@ links = dbc.Card(
             html.H4("Links & resources", className="mb-3"),
             html.Ul(
                 [
-                    html.Li(html.A("WHO — GHO API (Life expectancy)", href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/life-expectancy-at-birth-(years)",target="_blank")),
-                    html.Li(html.A("Demo video", href="https://…", target="_blank")),
+                    html.Li(
+                        html.A(
+                            "WHO — GHO API (Life expectancy)",
+                            href="https://www.who.int/data/gho/data/indicators/indicator-details/GHO/life-expectancy-at-birth-(years)",
+                            target="_blank",
+                        )
+                    ),
+                    html.Li(
+                        html.A(
+                            "Demo video",
+                            href="https://…",
+                            target="_blank",
+                        )
+                    ),
                 ]
             ),
         ]
@@ -181,19 +202,17 @@ cta = dbc.Row(
     className="g-2 mb-4",
 )
 
-# Credits & license
-credits = dbc.Card(
+# Credits & license — renamed from 'credits' to avoid redefinition
+credits_section = dbc.Card(
     dbc.CardBody(
         [
             html.H4("Authors"),
             html.P(
-                "Built by Keren Benadiba & Wilfried Lafaye (ESIEE Paris). ",
+                "Built by Keren Benadiba & Wilfried Lafaye (ESIEE Paris).",
             ),
-
             html.P(
                 "This app is provided for educational purposes.",
             ),
-
             html.H6("Citation & license"),
             html.P(
                 "If you use this app, please cite the WHO data source and this dashboard. "
@@ -226,7 +245,7 @@ page_layout = dbc.Container(
         ),
         links,
         cta,
-        credits,
+        credits_section,
     ],
     fluid=True,
     className="mb-5",
