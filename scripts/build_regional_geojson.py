@@ -16,7 +16,8 @@ WHO_REGIONS = {
                       'ETH', 'GAB', 'GMB', 'GHA', 'GIN', 'GNB', 'KEN', 'LSO',
                       'LBR', 'MDG', 'MWI', 'MLI', 'MRT', 'MUS', 'MOZ', 'NAM',
                       'NER', 'NGA', 'RWA', 'STP', 'SEN', 'SYC', 'SLE', 'ZAF',
-                      'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE', 'MAR']
+                      'SSD', 'SWZ', 'TGO', 'UGA', 'TZA', 'ZMB', 'ZWE', 'MAR',
+                      'SOM', 'SDN','EGY','LBY', 'TUN', 'DJI']
     },
     'AMR': {
         'name': 'Americas',
@@ -24,34 +25,34 @@ WHO_REGIONS = {
                       'CHL', 'COL', 'CRI', 'CUB', 'DMA', 'DOM', 'ECU', 'SLV',
                       'GRD', 'GTM', 'GUY', 'HTI', 'HND', 'JAM', 'MEX', 'NIC',
                       'PAN', 'PRY', 'PER', 'KNA', 'LCA', 'VCT', 'SUR', 'TTO',
-                      'USA', 'URY', 'VEN']
+                      'USA', 'URY', 'VEN','GUF']
     },
     'SEAR': {
         'name': 'South-East Asia',
-        'countries': ['BGD', 'BTN', 'PRK', 'IND', 'IDN', 'MDV', 'MMR', 'NPL',
-                      'LKA', 'THA', 'TLS']
+        'countries': ['BGD', 'BTN', 'IND', 'IDN', 'MDV', 'MMR', 'NPL',
+                      'LKA', 'THA', 'TLS','MYS']
     },
     'EUR': {
         'name': 'Europe',
         'countries': ['ALB', 'AND', 'ARM', 'AUT', 'AZE', 'BLR', 'BEL', 'BIH',
                       'BGR', 'HRV', 'CYP', 'CZE', 'DNK', 'EST', 'FIN', 'FRA',
-                      'GEO', 'DEU', 'GRC', 'HUN', 'ISL', 'IRL', 'ISR', 'ITA',
+                      'GEO', 'DEU', 'GRC', 'HUN', 'ISL', 'IRL', 'ITA',
                       'KAZ', 'KGZ', 'LVA', 'LTU', 'LUX', 'MLT', 'MCO', 'MNE',
                       'NLD', 'MKD', 'NOR', 'POL', 'PRT', 'MDA', 'ROU', 'RUS',
                       'SMR', 'SRB', 'SVK', 'SVN', 'ESP', 'SWE', 'CHE', 'TJK',
-                      'TUR', 'TKM', 'UKR', 'GBR', 'UZB']
+                      'TUR', 'TKM', 'UKR', 'GBR', 'UZB','RS-KM']
     },
     'EMR': {
         'name': 'Eastern Mediterranean',
-        'countries': ['AFG', 'BHR', 'DJI', 'EGY', 'IRN', 'IRQ', 'JOR', 'KWT',
-                      'LBN', 'LBY', 'OMN', 'PAK', 'PSE', 'QAT', 'SAU',
-                      'SOM', 'SDN', 'SYR', 'TUN', 'ARE', 'YEM']
+        'countries': ['AFG', 'BHR', 'IRN', 'IRQ', 'JOR', 'KWT',
+                      'LBN', 'OMN', 'PAK', 'PSE', 'QAT', 'SAU',
+                      'SYR', 'ARE', 'YEM','ISR']
     },
     'WPR': {
         'name': 'Western Pacific',
         'countries': ['AUS', 'BRN', 'KHM', 'CHN', 'COK', 'FJI', 'JPN', 'KIR',
-                      'LAO', 'MYS', 'MHL', 'FSM', 'MNG', 'NRU', 'NZL', 'NIU',
-                      'PLW', 'PNG', 'PHL', 'KOR', 'WSM', 'SGP', 'SLB', 'TON',
+                      'LAO', 'MHL', 'FSM', 'MNG', 'NRU', 'NZL', 'NIU',
+                      'PLW', 'PNG', 'PHL', 'KOR','PRK','WSM', 'SGP', 'SLB', 'TON',
                       'TUV', 'VUT', 'VNM']
     }
 }
