@@ -29,6 +29,8 @@ if not Path('data/raw/who_regions.geojson').exists():
 from src.pages.home import page_layout as home_layout
 from src.components.map import layout as map_layout
 from src.components.histogram import layout as histogram_layout
+from src.pages.about import page_layout as about_layout
+
 
 # Application configuration
 app = Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP],
@@ -41,7 +43,9 @@ app.layout = html.Div([
         children=[
             dbc.NavItem(dbc.NavLink("Home", href="/")),
             dbc.NavItem(dbc.NavLink("Map", href="/map")),
-            dbc.NavItem(dbc.NavLink("Histogram", href="/histogram"))
+            dbc.NavItem(dbc.NavLink("Histogram", href="/histogram")),
+            dbc.NavItem(dbc.NavLink("About", href="/about"))
+
         ],
         brand="Life Expectancy Dashboard",
         color="primary",
@@ -65,6 +69,8 @@ def display_page(pathname):
         return map_layout
     if pathname == "/histogram":
         return histogram_layout
+    if pathname == "/about":
+        return about_layout
     return home_layout
 
 if __name__ == "__main__":
