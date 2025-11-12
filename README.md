@@ -3,6 +3,8 @@
 Interactive dashboard exploring **life expectancy at birth** by country and region using open WHO data.  
 Built with **Python (Dash/Plotly & Folium)** to practice data ingestion, cleaning, and visualization.
 
+**Data source:** World Health Organization (WHO) — see [WHO Data Portal](https://data.who.int/) [web:3].
+
 ## Problem statement 
 
 **Have life expectancy gaps between regions of the world narrowed over the past 20 years, and do they differ between genders ?**
@@ -71,8 +73,10 @@ in the shell/terminal, run :
 3. Normalize sex labels to `SEX_MLE`, `SEX_FMLE`, `SEX_BTSX` (plus readable variants).
 4. Save cleaned dataset to `data/cleaned/cleaneddata.csv`.
 
-**World boundaries:** public world-countries GeoJSON.  
-Country ID alignment handled on ISO-3 (with small patches like for *South Sudan → `SSD`*).
+**World boundaries:** public world-countries GeoJSON, aligned by ISO-3 codes with custom patches.
+
+**Data License:**  
+The data used in this project is sourced from the World Health Organization (WHO) and is licensed under the **Creative Commons Attribution 4.0 International (CC BY 4.0)** license. This permits free use, sharing, and adaptation of the data provided proper attribution is given to WHO as the source.
 
 ## Developper Guide
 

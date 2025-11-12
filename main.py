@@ -3,6 +3,7 @@ Main module for the Life Expectancy Dashboard application.
 """
 
 # Standard library imports
+import sys
 from pathlib import Path
 
 # Third party imports
@@ -12,7 +13,12 @@ import dash_bootstrap_components as dbc
 # Local application imports
 from scripts.build_regional_geojson import create_who_regions_geojson
 from src.utils.get_data import download_raw_data
+from src.utils.get_data import check_all_resources_available
 from src.utils.clean_data import clean_data
+
+if not check_all_resources_available():
+    print("Erreur : certaines ressources externes indispensables ne sont pas accessibles.")
+    sys.exit(1)  # Quitte le programme avec un code d'erreur non nul
 
 # Download and clean data only if necessary
 if not Path('data/raw/rawdata.csv').exists():

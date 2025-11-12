@@ -2,7 +2,8 @@
 Data downloading and loading module.
 
 Handles data downloading from the WHO API,
-loading GeoJSON and cleaned data.
+loading GeoJSON and cleaned data,
+and verifying availability of external resources.
 """
 
 import json
@@ -20,54 +21,54 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.append(str(ROOT))
 
 
-def load_world_geojson():
-    """
-    Loads the world countries GeoJSON file.
-    
-    Returns:
-        dict: The GeoJSON file content
-    """
+def check_url_availability(url: str, timeout: int = 10) -> bool:
+    """Check if a remote URL is accessible (HTTP 200)."""
+    try:
+        response = requests.head(url, timeout=timeout)
+        return response.status_code == 200
+    except requests.RequestException:
+        return False
+
+
+def check_all_resources_available() -> bool:
+    """Check availability of all important external URLs."""
+    urls = [WORLD_GEOJSON_URL, URL]
+    return all(check_url_availability(u) for u in urls)
+
+
+def load_world_geojson() -> dict:
+    """Load the world countries GeoJSON file."""
     with urllib.request.urlopen(WORLD_GEOJSON_URL, timeout=15) as resp:
-        gj = json.load(resp)
-    return gj
+        return json.load(resp)
 
 
-def load_who_regions_geojson():
-    """
-    Loads the WHO regions GeoJSON file.
-    
-    Returns:
-        dict: The WHO regions GeoJSON file content
-    """
-    with open(WHO_REGIONS_GEOJSON, 'r', encoding='utf-8') as f:
-        return json.load(f)
+def load_who_regions_geojson() -> dict:
+    """Load the WHO regions GeoJSON file."""
+    with open(WHO_REGIONS_GEOJSON, "r", encoding="utf-8") as file:
+        return json.load(file)
 
 
-def load_clean_data():
-    """
-    Loads cleaned data from the CSV file.
-    
-    Returns:
-        pd.DataFrame: The cleaned data
-    """
+def load_clean_data() -> pd.DataFrame:
+    """Load cleaned data from CSV file."""
     return pd.read_csv(DEFAULT_CSV)
 
 
-def download_raw_data():
+def download_raw_data() -> None:
     """
-    Downloads raw data from the WHO API and saves it.
-    
-    Returns:
-        None
+    Download raw data from the WHO API and save it locally.
+    Checks URL availability before downloading.
     """
-    # GET request to the API with timeout
+    if not check_url_availability(URL):
+        print(f"Error: API URL not reachable: {URL}")
+        return
+
     response = requests.get(URL, timeout=30)
     response.raise_for_status()
 
-    # Convert response to DataFrame
     data = response.json()
-    df = pd.DataFrame(data['value'])
+    df = pd.DataFrame(data["value"])
 
-    # Save to CSV
-    df.to_csv('data/raw/rawdata.csv', index=False)
-    print('Data downloaded and saved in data/raw/rawdata.csv')
+    csv_path = Path("data/raw/rawdata.csv")
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    df.to_csv(csv_path, index=False)
+    print(f"Data downloaded and saved in {csv_path}")
